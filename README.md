@@ -30,7 +30,7 @@
 
 <li>Certifique-se de instalar o runtime do Node.js versão v18.14.2 LTS
 	<p>
-		<a href="https://dotnet.microsoft.com/en-us/download/dotnet/6.0">Link do Runtime do Node.js v18.14.2</a>
+		<a href="https://nodejs.org/en/">Link do Runtime do Node.js v18.14.2</a>
 	</p>
 
 ![Image](instrucoes-images/print2.png)
