@@ -93,4 +93,12 @@
 
 </li>
 
+<li>
+	Fluxo recomendado:
+	<ul>
+		<li>Comece pelo fluxo das ONGs, acessando a rota: <code>http://localhost:3000/ong</code></li>
+		<li>Em seguida, acesse a rota com o fluxo dos voluntários: <code>http://localhost:3000/voluntario</code></li>
+	</ul>
+</li>
+
 </ol>
