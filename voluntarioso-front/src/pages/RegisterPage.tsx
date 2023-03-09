@@ -4,6 +4,7 @@ import { cnpj, cpf } from 'cpf-cnpj-validator';
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiRequestEnpoints from '../apiRequests';
+import CustomAlertDialogRegister from '../components/shared/CustomAlertDialogRegister';
 import CustomButton from '../components/shared/CustomButton';
 import CustomInput from '../components/shared/CustomInput';
 import CustomSelect from '../components/shared/CustomSelect';
@@ -16,6 +17,7 @@ interface IRegisterPage {
 
 const RegisterPage = ({ type }: IRegisterPage) => {
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
     const [registerONG, setRegisterONG] = useState({
         nome: '',
         cnpj: '',
@@ -38,50 +40,67 @@ const RegisterPage = ({ type }: IRegisterPage) => {
         navigate(-1);
     };
 
-    const handleRegister = async () => {
+    const handleOpenDialog = () => {
         if (type === 'ONG') {
-            const resultRegister = await axios.post<boolean>(
-                `${apiRequestEnpoints.ONGRegister}`,
-                registerONG
-            );
-
-            if (resultRegister) {
-                const loginONG = {
-                    email: registerONG.email,
-                    senha: registerONG.senha,
-                };
-
-                const resultLogin = await axios.post(
-                    `${apiRequestEnpoints.ONGLogin}`,
-                    loginONG
-                );
-
-                if (resultLogin.status === 200) {
-                    navigate('/ong/home', { state: resultLogin.data });
-                }
+            if (registerONG.email !== '' && registerONG.senha !== '') {
+                setOpen(true);
             }
         } else {
-            const resultRegister = await axios.post<boolean>(
-                `${apiRequestEnpoints.VoluntarioRegister}`,
-                registerVoluntario
-            );
-
-            if (resultRegister) {
-                const loginVoluntario = {
-                    email: registerVoluntario.volunEmail,
-                    senha: registerVoluntario.volunSenha,
-                };
-
-                const resultLogin = await axios.post(
-                    `${apiRequestEnpoints.VoluntarioLogin}`,
-                    loginVoluntario
-                );
-
-                if (resultLogin.status === 200) {
-                    navigate('/voluntario/home', { state: resultLogin.data });
-                }
+            if (
+                registerVoluntario.volunEmail !== '' &&
+                registerVoluntario.volunSenha !== ''
+            ) {
+                setOpen(true);
             }
         }
+    };
+
+    const handleRegisterONG = async () => {
+        const resultRegister = await axios.post<boolean>(
+            `${apiRequestEnpoints.ONGRegister}`,
+            registerONG
+        );
+
+        if (resultRegister) {
+            const loginONG = {
+                email: registerONG.email,
+                senha: registerONG.senha,
+            };
+
+            const resultLogin = await axios.post(
+                `${apiRequestEnpoints.ONGLogin}`,
+                loginONG
+            );
+
+            if (resultLogin.status === 200) {
+                navigate('/ong/home', { state: resultLogin.data });
+            }
+        }
+    };
+
+    const handleRegisterVoluntario = async () => {
+        const resultRegister = await axios.post<boolean>(
+            `${apiRequestEnpoints.VoluntarioRegister}`,
+            registerVoluntario
+        );
+
+        if (resultRegister) {
+            const loginVoluntario = {
+                email: registerVoluntario.volunEmail,
+                senha: registerVoluntario.volunSenha,
+            };
+
+            const resultLogin = await axios.post(
+                `${apiRequestEnpoints.VoluntarioLogin}`,
+                loginVoluntario
+            );
+
+            if (resultLogin.status === 200) {
+                navigate('/voluntario/home', { state: resultLogin.data });
+            }
+        }
+
+        setOpen(false);
     };
 
     const handleChange = (
@@ -102,6 +121,15 @@ const RegisterPage = ({ type }: IRegisterPage) => {
 
     return (
         <div>
+            <CustomAlertDialogRegister
+                open={open}
+                type={type}
+                handleClose={
+                    type === 'ONG'
+                        ? handleRegisterONG
+                        : handleRegisterVoluntario
+                }
+            />
             <Box paddingTop={4} />
             <MainActions />
             <Typography variant='h3' color={Colors.purple} fontWeight='bold'>
@@ -216,7 +244,7 @@ const RegisterPage = ({ type }: IRegisterPage) => {
             <Box paddingBottom={2} />
             <CustomButton
                 fullWidth
-                handle={handleRegister}
+                handle={handleOpenDialog}
                 type='contained'
                 name='cadastrar'
             />

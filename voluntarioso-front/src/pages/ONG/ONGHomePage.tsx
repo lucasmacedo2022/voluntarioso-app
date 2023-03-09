@@ -19,9 +19,21 @@ const ONGHomePage = () => {
         navigate(`${id}/candidatos`);
     };
 
+    const handleLogout = () => {
+        navigate('/');
+    };
+
     return (
         <div>
-            <MainActions />
+            <MainActions>
+                <CustomButton
+                    type='outlined'
+                    name='Logout'
+                    size='large'
+                    fullWidth={false}
+                    handle={handleLogout}
+                />
+            </MainActions>
             <Typography variant='h5' color={Colors.purple} fontWeight='bold'>
                 Olá, {nome}!
             </Typography>

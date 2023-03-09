@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import apiRequestEnpoints from '../../../apiRequests';
 import CustomButton from '../../shared/CustomButton';
 import { ONG } from '../../../models/ONG';
@@ -11,6 +11,7 @@ import VoluntarioSingle from './ONGVoluntarioSingle';
 import MainActions from '../../shared/MainActions';
 
 const ONGVoluntarioList = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const [volunNome, setVolunNome] = useState<string>('');
     const [volunId, setVolunId] = useState<number>(0);
@@ -65,9 +66,21 @@ const ONGVoluntarioList = () => {
         alert(`Voluntário com id ${volId} selecionado com sucesso`);
     };
 
+    const handleLogout = () => {
+        navigate('/');
+    };
+
     return (
         <div style={{ paddingBottom: '2rem' }}>
-            <MainActions />
+            <MainActions>
+                <CustomButton
+                    type='outlined'
+                    name='Logout'
+                    size='large'
+                    fullWidth={false}
+                    handle={handleLogout}
+                />
+            </MainActions>
             <Typography variant='h5' color={Colors.purple} fontWeight='bold'>
                 Nossos Voluntários
             </Typography>

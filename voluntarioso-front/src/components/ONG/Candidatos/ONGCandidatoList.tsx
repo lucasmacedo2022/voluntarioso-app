@@ -1,7 +1,7 @@
 import { Typography, Box } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import apiRequestEnpoints from '../../../apiRequests';
 import { ONG } from '../../../models/ONG';
 import { Voluntario } from '../../../models/Voluntario';
@@ -11,6 +11,7 @@ import MainActions from '../../shared/MainActions';
 import ONGCandidatoSingle from './ONGCandidatoSingle';
 
 const ONGCandidatoList = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const [volunId, setVolunId] = useState<number>(0);
     const [ongCandidatos, setOngCandidatos] = useState<Voluntario[]>();
@@ -53,9 +54,21 @@ const ONGCandidatoList = () => {
         alert(`Candidato com id ${volId} selecionado com sucesso`);
     };
 
+    const handleLogout = () => {
+        navigate('/');
+    };
+
     return (
         <div style={{ paddingBottom: '2rem' }}>
-            <MainActions />
+            <MainActions>
+                <CustomButton
+                    type='outlined'
+                    name='Logout'
+                    size='large'
+                    fullWidth={false}
+                    handle={handleLogout}
+                />
+            </MainActions>
             <Typography variant='h5' color={Colors.purple} fontWeight='bold'>
                 Candidatos
             </Typography>

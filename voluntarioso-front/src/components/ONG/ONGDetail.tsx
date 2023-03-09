@@ -49,9 +49,21 @@ const ONGDetail = () => {
         }
     };
 
+    const handleLogout = () => {
+        navigate('/');
+    };
+
     return (
         <div>
-            <MainActions />
+            <MainActions>
+                <CustomButton
+                    type='outlined'
+                    name='Logout'
+                    size='large'
+                    fullWidth={false}
+                    handle={handleLogout}
+                />
+            </MainActions>
             {ong.nome !== null && (
                 <>
                     <Box

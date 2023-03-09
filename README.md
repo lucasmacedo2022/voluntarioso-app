@@ -28,12 +28,14 @@
 
 </li>
 
-<li>Certifique-se de instalar o runtime do Node.js versão v18.14.2 LTS
+<li>Certifique-se de instalar o runtime do Node.js versão v18.15.0 LTS, caso esteja utilizando Windows x64:
 	<p>
-		<a href="https://nodejs.org/en/">Link do Runtime do Node.js v18.14.2</a>
+		<a href="https://nodejs.org/en/">Link do Runtime do Node.js v18.15.0</a>
 	</p>
 
 ![Image](instrucoes-images/print2.png)
+
+![Image](instrucoes-images/print8.png)
 
 </li>
 

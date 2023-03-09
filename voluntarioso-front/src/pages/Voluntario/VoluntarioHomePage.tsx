@@ -1,8 +1,9 @@
 import { Box, Typography } from '@mui/material';
 import axios from 'axios';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import apiRequestEnpoints from '../../apiRequests';
+import CustomButton from '../../components/shared/CustomButton';
 import CustomSelect from '../../components/shared/CustomSelect';
 import MainActions from '../../components/shared/MainActions';
 import ONGList from '../../components/Voluntario/ONGList';
@@ -19,6 +20,7 @@ const fetchONGs = async () => {
 };
 
 const VoluntarioHomePage = () => {
+    const navigate = useNavigate();
     const {
         state: { volunNome, volunId },
     } = useLocation();
@@ -48,10 +50,22 @@ const VoluntarioHomePage = () => {
         setCategoriaSelected(e.target.value);
     };
 
+    const handleLogout = () => {
+        navigate('/');
+    };
+
     return (
         <div>
             <Box paddingTop={4} />
-            <MainActions />
+            <MainActions>
+                <CustomButton
+                    type='outlined'
+                    name='Logout'
+                    size='large'
+                    fullWidth={false}
+                    handle={handleLogout}
+                />
+            </MainActions>
             <Typography variant='h5' color={Colors.purple} fontWeight='bold'>
                 Olá, {volunNome}! Selecione suas áreas de interesse!
             </Typography>
